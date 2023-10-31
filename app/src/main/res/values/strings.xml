@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WheatherApp</string>
+    <string name="Menu_foto">Foto</string>
+    <string name="Menu_lupa">Lupa</string>
+</resources>
