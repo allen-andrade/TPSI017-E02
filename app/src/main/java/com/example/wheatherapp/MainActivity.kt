@@ -1,14 +1,17 @@
 package com.example.wheatherapp
 
+import android.media.AudioRecord.OnRecordPositionUpdateListener
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,9 +28,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
 import com.example.wheatherapp.ui.theme.WheatherAppTheme
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +95,9 @@ fun Cabecalho(): Unit {
             onClick = { /*TODO*/ },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
             contentPadding = PaddingValues(),
-            modifier = Modifier.width(35.dp).clip(CircleShape)
+            modifier = Modifier
+                .width(35.dp)
+                .clip(CircleShape)
             ) {
 
             Image(
@@ -96,4 +108,48 @@ fun Cabecalho(): Unit {
         }
 
     }
+}
+
+/*
+@Preview(showBackground = true, widthDp = 380)
+@Composable
+fun teste(): Unit {
+    dataNome("Andrade")
+}
+*/
+
+@Preview(showBackground = true, widthDp = 380)
+@Composable
+fun NomeDataLocal(name: String = "Allen"): Unit {
+    Column (modifier = Modifier.fillMaxWidth()){
+        Row (modifier = Modifier.fillMaxWidth())
+        {
+            Text(text = "Olá",
+                modifier = Modifier.padding(end = 2.dp),
+                fontSize = TextUnit(25f, TextUnitType.Sp),
+                color = MaterialTheme.colorScheme.primary
+            )
+
+            Text(text = "$name",
+                fontWeight = FontWeight.Bold,
+                fontSize = TextUnit(25f, TextUnitType.Sp),
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
+        Text(text = formatData(Calendar.getInstance().time),
+            fontWeight = FontWeight.Light,
+            fontSize = TextUnit(18f, TextUnitType.Sp),
+            color = MaterialTheme.colorScheme.secondary
+        )
+        Text(text = "Vila Franca de Xira",
+            fontWeight = FontWeight.Light,
+            fontSize = TextUnit(18f, TextUnitType.Sp),
+            color = MaterialTheme.colorScheme.secondary
+            )
+    }
+}
+
+fun formatData(data: Date): String {
+    val format = SimpleDateFormat("dd MMMM, EEEE yyyy", Locale("pt", "PT"))
+    return format.format(data)
 }
