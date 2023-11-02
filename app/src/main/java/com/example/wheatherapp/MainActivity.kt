@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -72,13 +74,67 @@ fun GreetingPreview() {
     }
 }
 
+@Preview(showBackground = true, widthDp = 380, heightDp = 800)
+@Composable
+fun Page(): Unit {
+    Column (modifier = Modifier
+        .fillMaxWidth()
+        .padding(12.dp))
+    {
+        Cabecalho()
+        NomeDataLocal("Allen")
+        ImagemCentral()
+    }
+}
+
+@Preview(showBackground = true, widthDp = 380, heightDp = 350)
+@Composable
+fun ImagemCentral(): Unit {
+    Box(modifier = Modifier
+        .height(300.dp)
+        .background(Color.Transparent)
+        .fillMaxWidth()
+    )
+    {
+        Column {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(15.dp),
+                contentAlignment = Alignment.TopCenter
+            )
+            {
+            Image(painter = painterResource(id = R.drawable.rainy),
+                contentDescription = "Chuva")
+            }
+            Row (verticalAlignment = Alignment.Bottom,
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center
+                ){
+                Text(text = "17°",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = TextUnit(55f, TextUnitType.Sp),
+                    color = MaterialTheme.colorScheme.primary
+                )
+                Text(text = "Muito Nublado",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = TextUnit(15f, TextUnitType.Sp),
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
+    }
+}
+
 @Preview(showBackground = true, widthDp = 380, heightDp = 50)
 @Composable
 fun Cabecalho(): Unit {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.padding(12.dp, 8.dp)
+        modifier = Modifier
+            .padding(0.dp, 8.dp)
+            .fillMaxWidth()
     ) {
         Button(
             onClick = { /*TODO*/ },
@@ -96,9 +152,9 @@ fun Cabecalho(): Unit {
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
             contentPadding = PaddingValues(),
             modifier = Modifier
-                .width(35.dp)
                 .clip(CircleShape)
-            ) {
+                .size(35.dp)
+        ) {
 
             Image(
                 painter = painterResource(id = R.drawable.foto),
@@ -109,14 +165,6 @@ fun Cabecalho(): Unit {
 
     }
 }
-
-/*
-@Preview(showBackground = true, widthDp = 380)
-@Composable
-fun teste(): Unit {
-    dataNome("Andrade")
-}
-*/
 
 @Preview(showBackground = true, widthDp = 380)
 @Composable
