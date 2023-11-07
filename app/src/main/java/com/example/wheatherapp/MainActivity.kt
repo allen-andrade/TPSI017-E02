@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
@@ -51,12 +53,50 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    Page()
                 }
             }
         }
     }
 }
+
+var informacaoSeteDias = listOf(
+    temperaturaDia(
+        temperatura = 25,
+        estado = "Limpo",
+        resource = R.drawable.sun
+    ),
+    temperaturaDia(
+        temperatura = 20,
+        estado = "Nublado",
+        resource = R.drawable.cloudy
+    ),
+    temperaturaDia(
+        temperatura = 21,
+        estado = "Nuvem",
+        resource = R.drawable.snowy
+    ),
+    temperaturaDia(
+        temperatura = 15,
+        estado = "Chuva",
+        resource = R.drawable.rainy
+    ),
+    temperaturaDia(
+        temperatura = 10,
+        estado = "Tempestade",
+        resource = R.drawable.storm
+    ),
+    temperaturaDia(
+        temperatura = 19,
+        estado = "Chuva",
+        resource = R.drawable.rainy
+    ),
+    temperaturaDia(
+        temperatura = 21,
+        estado = "Nublado",
+        resource = R.drawable.cloudy
+    )
+)
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
@@ -86,10 +126,36 @@ fun Page(): Unit {
         Cabecalho()
         NomeDataLocal("Allen")
         ImagemCentral()
+        proximosSeteDias()
     }
 }
 
 @Preview(showBackground = true, widthDp = 380, heightDp = 350)
+@Composable
+fun proximosSeteDias(): Unit {
+    LazyRow {
+        items(informacaoSeteDias) {
+            proximoDia(temperaturaDia = it)
+        }
+    }
+}
+
+@Composable
+fun proximoDia(
+    temperaturaDia: temperaturaDia): Unit {
+    Column (
+        modifier = Modifier
+            .width(100.dp)
+            .padding(15.dp, 15.dp, 15.dp, 15.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ){
+        Image(painter = painterResource(id = temperaturaDia.resource), contentDescription = temperaturaDia.estado)
+        Text(text = temperaturaDia.temperatura.toString())
+        Text(text = temperaturaDia.estado)
+    }
+}
+
+//@Preview(showBackground = true, widthDp = 380, heightDp = 350)
 @Composable
 fun ImagemCentral(): Unit {
     Box(
@@ -145,7 +211,7 @@ fun ImagemCentral(): Unit {
     }
 }
 
-@Preview(showBackground = true, widthDp = 380, heightDp = 50)
+//@Preview(showBackground = true, widthDp = 380, heightDp = 50)
 @Composable
 fun Cabecalho(): Unit {
     Row(
@@ -185,7 +251,7 @@ fun Cabecalho(): Unit {
     }
 }
 
-@Preview(showBackground = true, widthDp = 380)
+//@Preview(showBackground = true, widthDp = 380)
 @Composable
 fun NomeDataLocal(name: String = "Allen"): Unit {
     Column(modifier = Modifier.fillMaxWidth()) {
