@@ -130,7 +130,7 @@ fun Page(): Unit {
     }
 }
 
-@Preview(showBackground = true, widthDp = 380, heightDp = 350)
+//@Preview(showBackground = true, widthDp = 380, heightDp = 350)
 @Composable
 fun proximosSeteDias(): Unit {
     LazyRow {
